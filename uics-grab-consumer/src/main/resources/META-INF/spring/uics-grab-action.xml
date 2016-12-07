@@ -30,4 +30,39 @@
     </bean>
     <!-- idcs通知 action -->
 
+
+	<!-- h3c告警信息 action -->
+    <bean class="com.uics.grab.consumer.H3cRealtimeFaultDemoAction" init-method="start">
+        <property name="h3cRealtimeFaultService" ref="h3cRealtimeFaultService"/>
+    </bean>
+    <!-- h3c告警信息 action -->
+
+
+	<!-- idcs通知 action -->
+    <bean class="com.uics.grab.consumer.IdcsNotificationDemoAction" init-method="start">
+        <property name="idcsNotificationService" ref="idcsNotificationService"/>
+    </bean>
+    <!-- idcs通知 action -->
+
+
+	<!-- vrv监控指标统计信息 action -->
+    <bean class="com.uics.grab.consumer.VrvTargetDemoAction" init-method="start">
+        <property name="vrvTargetService" ref="vrvTargetService"/>
+    </bean>
+    <!-- vrv监控指标统计信息 action -->
+
+
+	<!-- vrv配置信息 action -->
+    <bean class="com.uics.grab.consumer.VrvConfigDemoAction" init-method="start">
+        <property name="vrvConfigService" ref="vrvConfigService"/>
+    </bean>
+    <!-- vrv配置信息 action -->
+
+
+	<!-- idcs代办 action -->
+    <bean class="com.uics.grab.consumer.IdcsTodoDemoAction" init-method="start">
+        <property name="idcsTodoService" ref="idcsTodoService"/>
+    </bean>
+    <!-- idcs代办 action -->
+
 </beans>

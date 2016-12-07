@@ -18,4 +18,24 @@
     <dubbo:reference id="idcsNotificationService" interface="com.uics.grab.service.IdcsNotificationService"/>
     <!-- idcs通知 service -->
 
+
+	<!-- h3c告警信息 service -->
+    <dubbo:reference id="h3cRealtimeFaultService" interface="com.uics.grab.service.H3cRealtimeFaultService"/>
+    <!-- h3c告警信息 service -->
+
+
+	<!-- vrv监控指标统计信息 service -->
+    <dubbo:reference id="vrvTargetService" interface="com.uics.grab.service.VrvTargetService"/>
+    <!-- vrv监控指标统计信息 service -->
+
+
+	<!-- vrv配置信息 service -->
+    <dubbo:reference id="vrvConfigService" interface="com.uics.grab.service.VrvConfigService"/>
+    <!-- vrv配置信息 service -->
+
+
+	<!-- idcs代办 service -->
+    <dubbo:reference id="idcsTodoService" interface="com.uics.grab.service.IdcsTodoService"/>
+    <!-- idcs代办 service -->
+
 </beans>

@@ -48,4 +48,36 @@
                    protocol="dubbo" validation="true" timeout="2000" connections="100"/>
     <!-- idcs通知 api -->
 
+
+	<!-- h3c告警信息 api -->
+    <bean id="h3cRealtimeFaultService" class="com.uics.grab.service.H3cRealtimeFaultServiceImpl"/>
+
+    <dubbo:service interface="com.uics.grab.service.H3cRealtimeFaultService" ref="h3cRealtimeFaultService"
+                   protocol="dubbo" validation="true" timeout="2000" connections="100"/>
+    <!-- h3c告警信息 api -->
+
+
+	<!-- vrv监控指标统计信息 api -->
+    <bean id="vrvTargetService" class="com.uics.grab.service.VrvTargetServiceImpl"/>
+
+    <dubbo:service interface="com.uics.grab.service.VrvTargetService" ref="vrvTargetService"
+                   protocol="dubbo" validation="true" timeout="2000" connections="100"/>
+    <!-- vrv监控指标统计信息 api -->
+
+
+	<!-- vrv配置信息 api -->
+    <bean id="vrvConfigService" class="com.uics.grab.service.VrvConfigServiceImpl"/>
+
+    <dubbo:service interface="com.uics.grab.service.VrvConfigService" ref="vrvConfigService"
+                   protocol="dubbo" validation="true" timeout="2000" connections="100"/>
+    <!-- vrv配置信息 api -->
+
+
+	<!-- idcs代办 api -->
+    <bean id="idcsTodoService" class="com.uics.grab.service.IdcsTodoServiceImpl"/>
+
+    <dubbo:service interface="com.uics.grab.service.IdcsTodoService" ref="idcsTodoService"
+                   protocol="dubbo" validation="true" timeout="2000" connections="100"/>
+    <!-- idcs代办 api -->
+
 </beans>
