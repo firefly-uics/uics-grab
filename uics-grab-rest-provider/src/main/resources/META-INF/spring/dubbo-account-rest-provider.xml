@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Copyright 1999-2011 Alibaba Group.
+ -
+ - Licensed under the Apache License, Version 2.0 (the "License");
+ - you may not use this file except in compliance with the License.
+ - You may obtain a copy of the License at
+ -
+ -      http://www.apache.org/licenses/LICENSE-2.0
+ -
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS,
+ - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ - See the License for the specific language governing permissions and
+ - limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--uncomment this if you want to test dubbo's monitor-->
+    <dubbo:monitor protocol="registry"/>
+
+    <!-- here we demonstrate both annotation-based and xml-based configs -->
+    <dubbo:annotation package="com.uics.grab.facade"/>
+
+    <!-- use tomcat server -->
+    <dubbo:protocol name="rest" threads="500" contextpath="api/v2" server="tomcat" accepts="500"
+                    extension="com.uics.grab.extension.TraceInterceptor,
+                    com.uics.grab.extension.TraceFilter,
+                    com.uics.grab.extension.ClientTraceFilter,
+                    com.uics.grab.extension.DynamicTraceBinding,
+                    com.uics.grab.extension.CustomExceptionMapper,
+                    com.alibaba.dubbo.rpc.protocol.rest.support.LoggingFilter"/>
+
+
+    <!-- account api v2 -->
+    <dubbo:service interface="com.uics.grab.facade.AccountRestService" ref="accountRestService"
+                   protocol="rest" validation="true" timeout="2000" connections="100"/>
+    <bean id="accountRestService" class="com.uics.grab.facade.AccountRestServiceImpl">
+        <property name="accountService" ref="accountService"/>
+    </bean>
+    <dubbo:reference id="accountService" interface="com.uics.grab.service.AccountService"/>
+    <!-- account api v2 -->
+
+    <!-- message api v2 -->
+    <dubbo:service interface="com.uics.grab.facade.MessageRestService" ref="messageRestService"
+                   protocol="rest" validation="true" timeout="2000" connections="100"/>
+
+    <bean id="messageRestService" class="com.uics.grab.facade.MessageRestServiceImpl">
+        <property name="messageService" ref="messageService"/>
+    </bean>
+
+    <dubbo:reference id="messageService" interface="com.uics.grab.service.MessageService"/>
+    <!-- message api v2 -->
+</beans>
