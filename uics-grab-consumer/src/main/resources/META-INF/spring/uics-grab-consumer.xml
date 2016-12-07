@@ -13,4 +13,9 @@
     <!--<dubbo:monitor protocol="registry"/>-->
 
     <dubbo:reference id="accountService" interface="com.uics.grab.service.AccountService"/>
+
+	<!-- idcs通知 service -->
+    <dubbo:reference id="idcsNotificationService" interface="com.uics.grab.service.IdcsNotificationService"/>
+    <!-- idcs通知 service -->
+
 </beans>

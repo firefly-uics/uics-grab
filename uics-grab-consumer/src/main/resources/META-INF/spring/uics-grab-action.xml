@@ -23,4 +23,11 @@
     </bean>
 
 
+
+	<!-- idcs通知 action -->
+    <bean class="com.uics.grab.consumer.IdcsNotificationDemoAction" init-method="start">
+        <property name="idcsNotificationService" ref="idcsNotificationService"/>
+    </bean>
+    <!-- idcs通知 action -->
+
 </beans>
