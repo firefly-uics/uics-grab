@@ -52,10 +52,7 @@ public class ApiAuthorizationFilterImpl implements SwaggerSpecFilter {
       return true;
     }
     else {
-      if(!"GET".equalsIgnoreCase(api.getMethod()) || api.getPath().indexOf("/store") != -1) {
-        return false;
-      }
-      else return true;
+       return true;
     }
   }
 

@@ -11,7 +11,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/classes/META-INF/spring/applicationContext.xml,/WEB-INF/classes/META-INF/spring/fionapet-business-rest-provider.xml,/WEB-INF/classes/META-INF/spring/fionapet-business-rest-provider-tom.xml</param-value>
+        <param-value>/WEB-INF/classes/META-INF/spring/applicationContext.xml,/WEB-INF/classes/META-INF/spring/uics-grab-rest-provider.xml</param-value>
     </context-param>
 
     <context-param>
@@ -21,7 +21,7 @@
 
     <filter>
         <filter-name>ApiOriginFilter</filter-name>
-        <filter-class>com.fionapet.business.util.ApiOriginFilter</filter-class>
+        <filter-class>com.uics.grab.util.ApiOriginFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>ApiOriginFilter</filter-name>
@@ -49,7 +49,7 @@
         <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
         <init-param>
             <param-name>javax.ws.rs.Application</param-name>
-            <param-value>com.fionapet.business.servlet.PetStoreApplication</param-value>
+            <param-value>com.uics.grab.servlet.PetStoreApplication</param-value>
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>
@@ -57,7 +57,7 @@
 
     <servlet>
         <servlet-name>Bootstrap</servlet-name>
-        <servlet-class>com.fionapet.business.servlet.Bootstrap</servlet-class>
+        <servlet-class>com.uics.grab.servlet.Bootstrap</servlet-class>
         <load-on-startup>3</load-on-startup>
     </servlet>
 
