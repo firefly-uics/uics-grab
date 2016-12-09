@@ -1,0 +1,682 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>
+        视图显示页面
+    </title>
+    <link rel="stylesheet" type="text/css" id="view_css" href="/idcs/resource/skins/default/css/view.css"/>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/lang/zh-cn/showwin_lang.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/lang/zh-cn/jsview_lang.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/lang/zh-cn/manageraction_lang.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/ajaxcommon.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/horizon/workflow/js/showwin.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/horizon/workflow/manager/js/manageraction.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/selectuser.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/horizon/dateselect/calendar.js">
+    </script>
+    <script language="javascript" src="/idcs/horizon/formview/view/js/viewlist.js">
+    </script>
+    <script language="javascript" src="/idcs/horizon/formview/view/js/sortabletable.js">
+    </script>
+    <style type="text/css">
+      &lt;!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	overflow-y:hidden;
+}
+.ellipsis_row{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+
+--&gt;
+
+    </style>
+    <script>
+//<![CDATA[
+
+  var PageMax = 15;
+  var CurPage =1;
+  var isHome = false;   
+  var otherThirdHeight = 0;//其他参数
+  var canAddRows = 0;
+  var hasViewButton = "false";
+  var countHeight = 0;
+  if(hasViewButton=="true"){ 
+	  countHeight = document.documentElement.clientHeight-otherThirdHeight-108;	 
+  }else{
+	  countHeight = document.documentElement.clientHeight-otherThirdHeight-76;	  
+  }
+  
+  canAddRows= parseInt((countHeight)/28);
+  var needNullLine = true;
+  var nullLineNum =canAddRows; //16:17
+
+function autoHeight(){
+	if(hasViewButton=="true"){	 
+//		 countHeight = document.documentElement.clientHeight-otherThirdHeight-108;	 
+//	  document.getElementById("listcon").style.height=countHeight+"px";	 
+	}else{	 
+//		 countHeight = document.documentElement.clientHeight-otherThirdHeight-76;	  
+//	  document.getElementById("listcon").style.height=countHeight+"px";	  
+	}	
+	if(getIEVersion()=="IE7.0" || getIEVersion()=="IE8.0"){
+	  var initWidth = document.getElementById("listcon").offsetWidth;
+	  document.getElementById("viewtable").style.width =initWidth-17+"px";
+	}
+	canAddRows= parseInt((countHeight)/28);
+	needNullLine = true;
+	nullLineNum =canAddRows; //16:17
+	//填充空白行
+	outNullLine();		
+}
+
+function impl_load(){
+	var e;
+	try{
+		//_impl_view_onload();
+	}catch (e){
+	}
+}
+//简单搜索显示提示内容
+  function displaySimpleSearch(obj){
+	  if(obj.title=='')
+	  {
+	    try{      
+	      var simple=document.getElementsByName("simpleforsearchCN")[0].innerHTML;
+	      result=simple.replace(/<.*?>/g,"");
+	      result=result.replace(/&nbsp;/g,"");     
+	      obj.title='快速搜索项:'+result;
+	    }catch(e)
+	    {
+	    }
+	   }
+   }
+
+
+//]]>
+    </script>
+</head>
+<body onload="_loadNavText(true);autoHeight();impl_load();" onresize="autoHeight();">
+<div class="LineTop" style=" margin:0px auto;overflow: auto;">
+    <form name="frmSearch" method="post">
+        <input type="hidden" name="catText" value=""/>
+        <input type="hidden" name="viewid" value="HZ29ee8e3e0b4090013e0b5a6d71005a"/>
+        <input type="hidden" name="sortFlag" value=""/>
+        <!-- 格式:列数;倒序true -->        <input type="hidden" name="pagemax" value=""/>
+        <input type="hidden" name="curpage" value=""/>
+        <input type="hidden" name="searchflag" value="1"/>
+        <!--	//1==不搜索,2=简单搜索,3=高级搜索 -->        <input type="hidden" id="dbIdentifier" name="dbIdentifier" value="system"/>
+        <div id="tit_top" class="tit_top" style="display:">
+          <span class="crumb" id="tdNavText" style="vertical-align: middle;">
+          </span>
+            <div class="vw_serach_td">
+                <div class="input_wrap" style="display:none">
+                    <input name="txtSearch" type="text" onkeypress="ckSearch(this.parentNode.nextSibling,event)" style="width:95%;" onfocus="javascrit:this.className= 'PitchOnSpring'" onmousemove="displaySimpleSearch(this)"/>
+                </div>
+                <div style="float:left;display:none">
+                    <a href="#nogo" id="tdSearch" onclick="ckSearch(this);">
+                        搜索
+                    </a>
+                    <a href="#nogo" id="tdAdSearch" onclick="ckAdSeach(this)">
+                        高级搜索
+                    </a>
+                </div>
+                <input type="button" value="刷新" style="cursor:pointer;font-size:12px;font-family:微软雅黑,宋体;width:50px" onclick="refreshFun();"/>
+                <div id="idAdSearch" style="display:none;">
+                    <input type="hidden" id="dbIdentifier" name="dbIdentifier" value="system"/>
+                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="line-height:180%;">
+                        <tbody>
+                        <tr>
+                            <td height="35" align="left" colspan="2">
+                                   请输入查询条件：
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="idAdSearchButton" style="display:none">
+                    <table boder="0">
+                        <tbody>
+                        <tr align="center">
+                            <td width="24%" colspan="2">
+                                <input type="button" value="取消搜索" onclick="parent.okAdSeach(1)" name="btnCancel" class="CheckTrigger" onmouseover="this.className='CheckTriggerOver'" onmouseout="this.className='CheckTrigger'" onmousedown="this.className='CheckTriggerActive'"/>
+                                <input type="button" id="btnAdSearch" value="搜索" onclick="parent.okAdSeach(3)" name="btnSearch" class="CheckTrigger" onmouseover="this.className='CheckTriggerOver'" onmouseout="this.className='CheckTrigger'" onmousedown="this.className='CheckTriggerActive'"/>
+                                <input type="button" value="重置" onclick="eraseHint($('idAdSearch'))" name="Submit22" class="CheckTrigger" onmouseover="this.className='CheckTriggerOver'" onmouseout="this.className='CheckTrigger'" onmousedown="this.className='CheckTriggerActive'"/>
+                                <input type="button" value="返回" onclick="parent.showLayer(null,false); " name="Submit22" class="CheckTrigger" onmouseover="this.className='CheckTriggerOver'" onmouseout="this.className='CheckTrigger'" onmousedown="this.className='CheckTriggerActive'"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="title" class="titlebtn" style="display:none">
+            <div class="vw_serach_btn">
+            </div>
+        </div>
+    </form>
+    <div id="listcon" class="listcon" style="overflow:auto;">
+        <div class="sort-table-warp">
+            <table class="sort-table" border="0" id="viewtable" style="width: 1239px;">
+                <col style="text-align:left"/>
+                <col style="text-align:left"/>
+                <col style="text-align:left"/>
+                <col style="text-align:left"/>
+                <col style="text-align:left"/>
+                <thead>
+                <tr>
+                    <th class="t_rb" style="display:none" _sorttype="None">
+                        <input type="checkbox" name="selectids" onclick="selectall(this)" value="on"/>
+                    </th>
+                    <th align="center" class="t_rb" _sorttype="None">
+                  <span class="thWordStyle" style="text-align:left">
+                    发布类型
+                  </span>
+                    </th>
+                    <th align="center" class="t_rb" _sorttype="None">
+                  <span class="thWordStyle" style="text-align:left">
+                    标题
+                  </span>
+                    </th>
+                    <th align="center" class="t_rb" _sorttype="None">
+                  <span class="thWordStyle" style="text-align:left">
+                    发布时间
+                  </span>
+                    </th>
+                    <th align="center" class="t_rb" _sorttype="None">
+                  <span class="thWordStyle" style="text-align:left">
+                    发布单位
+                  </span>
+                    </th>
+                    <th align="center" class="t_rb" _sorttype="None">
+                  <span class="thWordStyle" style="text-align:left">
+                    是否有效
+                  </span>
+                    </th>
+                    <th style="display:none" _sorttype="undefined"/>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01589a97af6d3760"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        调度公告
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff01589a97af6d3760&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于各公司门户账号弱口令公示及整改通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-25 16:26:21
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_1">HZ6a88895594d0ff01589a97af6d3760</textarea>                  <textarea name="nr_1"> 各单位： ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr2" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff0158942c78a059e6"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        调度公告
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff0158942c78a059e6&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于核实并修正I6000中机房建筑场地“可用面积”和“已用面积”的通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-24 10:31:32
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_2">HZ6a88895594d0ff0158942c78a059e6</textarea>                  <textarea name="nr_2">各地市公司：&lt;br  ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01587130920f0544"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        文件通知
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff01587130920f0544&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        护网期间公告-以此为准！
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-17 15:29:18
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        平台运检组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_3">HZ6a88895594d0ff01587130920f0544</textarea>                  <textarea name="nr_3"> ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr2" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff0158710012000186"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        文件通知
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff0158710012000186&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于护网期间公告（供参考）
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-17 14:36:19
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        平台运检组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_4">HZ6a88895594d0ff0158710012000186</textarea>                  <textarea name="nr_4">由于该公告针对省公司 ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff015861e8bd6d7754"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        文件通知
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff015861e8bd6d7754&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        2016年信息秋季安全检查重点内容提纲（电子版）
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-14 16:16:32
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        平台运检组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        否
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_5">HZ6a88895594d0ff015861e8bd6d7754</textarea>                  <textarea name="nr_5"> ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr2" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01584788ff282928"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        调度公告
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff01584788ff282928&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于口令设置要求的通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-09 13:21:50
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_6">HZ6a88895594d0ff01584788ff282928</textarea>                  <textarea name="nr_6"> 各单位： ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff015842d802d853bd"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        调度公告
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff015842d802d853bd&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        各地市公司开通省公司供电服务指挥平台应用服务补充通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-08 15:30:02
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_7">HZ6a88895594d0ff015842d802d853bd</textarea>                  <textarea name="nr_7">&lt;p&gt;各单位：&lt;br ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr2" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01583cfd72dc632d"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        调度公告
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff01583cfd72dc632d&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        暂停修改门户密码的通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-07 12:13:12
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_8">HZ6a88895594d0ff01583cfd72dc632d</textarea>                  <textarea name="nr_8">&lt;p&gt;各单位同事：&lt; ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01583ccd36935cda"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        文件通知
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff01583ccd36935cda&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于2017年度网络与信息系统运行方式的修改补充通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-07 11:20:31
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_9">HZ6a88895594d0ff01583ccd36935cda</textarea>                  <textarea name="nr_9">&lt;div&gt;&lt;span ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr2" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01582eae17531b4a"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        文件通知
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff01582eae17531b4a&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于oracle 数据库SCN隐患排查事宜的通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-04 17:32:25
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_10">HZ6a88895594d0ff01582eae17531b4a</textarea>                  <textarea name="nr_10">&lt;div&gt;&lt;span ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01582d634ccd7ff8"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        调度公告
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff01582d634ccd7ff8&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        各地市公司开通省公司供电服务指挥平台应用服务与开通供电服务指挥平台开发运维人员访问 
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-04 11:30:32
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_11">HZ6a88895594d0ff01582d634ccd7ff8</textarea>                  <textarea name="nr_11">&lt;p&gt;各单位：&lt;br ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr2" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff0158246e61446e82"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        文件通知
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff0158246e61446e82&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        弱口令专项治理工作的通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-02 17:46:03
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_12">HZ6a88895594d0ff0158246e61446e82</textarea>                  <textarea name="nr_12">&lt;div&gt;各单位同事 ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01582298b9dc4d6d"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        调度公告
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff01582298b9dc4d6d&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于申请开通数据库访问权限的通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-11-02 09:13:04
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        是
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_13">HZ6a88895594d0ff01582298b9dc4d6d</textarea>                  <textarea name="nr_13">&lt;p&gt;各单位：&lt;br ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr2" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff0158007c822f1aaf"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        文件通知
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff0158007c822f1aaf&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于Oracle数据库使用情况调研的通知
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-10-26 18:15:09
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        否
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_14">HZ6a88895594d0ff0158007c822f1aaf</textarea>                  <textarea name="nr_14">各单位：&lt;br /&gt; ...</textarea>                </td>
+                </tr>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff0157f9d3664a233f"/>
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        调度公告
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/formview/form/form.default.jsp?dataid=HZ6a88895594d0ff0157f9d3664a233f&amp;formid=HZ2881e53e1abe3f013e1c688c99049c','','width=710,height=450,top='+(screen.height-450)/2+',left='+(screen.width-710)/2+',status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes')">
+                        关于"各单位在用账号弱口令整改的通知"补充说明
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        2016-10-25 11:12:43
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        信息调度监控组
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        否
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_15">HZ6a88895594d0ff0157f9d3664a233f</textarea>                  <textarea name="nr_15">&lt;div&gt;各单位同事 ...</textarea>                </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="display:none;" class="vw_data_over" id="divTmpForTable">
+        </div>
+    </div>
+    <div class="page" id="idPage" style="text-align:center;display:''">
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:-5px;">
+            <tbody>
+            <tr height="22px">
+                <td align="center">
+                    共
+                    <span id="totalNumText">
+                  167
+                </span>
+
+                    条记录，共
+                    <span id="totalPageText">
+                  12
+                </span>
+
+                    页，每页显示
+                    <input name="maxPageNum" value="15" onkeypress="changePageMax(this,event)" onblur="lostfocuschangePageMax(this)" onkeydown="changePageMax(this,event)" type="text" onkeyup="clearNoNum(this);" style="width:30px" maxlength="2"/>
+
+                    条记录，当前为第
+                    <input name="curPageNum" value="1" onkeypress="gotoPage(this,event)" onkeydown="gotoPage(this,event)" type="text" onkeyup="clearNoNum(this);" style="width:40px" maxlength="5"/>
+
+                    页，
+                    <span id="pg1" class="vw_data_no">
+                  首页
+                </span>
+                     
+                    <span id="pg2" class="vw_data_no">
+                  上一页
+                </span>
+                     
+
+                    <span id="pg3" class="vw_data_ckpage">
+                  下一页
+                </span>
+                     
+                    <span id="pg4" class="vw_data_ckpage">
+                  尾页
+                </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+			
+			var catText = "";
+			$("catText").value =catText;
+			var tablObj = $("viewtable");
+			var tablWidth ="100%";
+			var st1 = new SortableTable(tablObj,"None;None;None;None;None;None".split(";"));
+		
+//]]>
+    </script>
+<form name="actionForm" target="flowframe" method="post">
+    <div style="display:none">
+        <textarea name="idsList"></textarea>      </div>
+    <div id="paraDiv" style="display:none">
+    </div>
+    <input type="hidden" name="viewid" value="HZ29ee8e3e0b4090013e0b5a6d71005a"/>
+</form>
+<form name="EFormOpen" target="_blank" method="post">
+    <input type="hidden" name="dataid" value=""/>
+    <input type="hidden" name="formid" value=""/>
+    <input type="hidden" name="OpenDoc" value=""/>
+</form>
+<div id="idLayer" style="filter:alpha(opacity=0);-moz-opacity:0;opacity:0;z-index:1000;top:0px;left:0px;width:expression(document.body.clientWidth );
+	height:expression(document.body.clientHeight);background-color:#FFFFFF;position:absolute;display:none">
+</div>
+<div id="flowframeLayer" style="z-index:1001;width:451px;height:360px;left:50%; top:20%;display:none;
+	background-color:slategray;color:slategray;font-size:10px;border:2px solid slategray;
+font-family:微软雅黑,宋体;position:absolute;cursor:default ">
+    <div id="dragDiv" style="height:44px; line-height:44px;font-size:14px; color:#FFFFFF; text-indent:10px; background:url(/idcs/resource/skins/default/css/img/title_bg2.gif) right top" ondblclick="showLayer(null,false)">
+        <b>
+            <font style="font-size:10pt" id="iframetitle">
+                ====   请稍后  ====
+            </font>
+        </b>
+        <img src="/idcs/resource/skins/default/css/img/a_close.gif" alt="关闭" style="position:absolute;right:10px;top:14px;cursor:pointer" onclick="showLayer(null,false)"/>
+    </div>
+    <div id="idProcess" style="width: 100%; height: 87%; background-color: white; line-height: 14px; word-break: break-all; display: none;">
+        <iframe name="flowprocess" scrolling="auto" frameborder="0" width="100%" height="100%" src="">
+        </iframe>
+    </div>
+    <div id="idResult" style="width: 100%; height: 87%; background-color: white; line-height: 14px; word-break: break-all; display: block;">
+        <iframe name="flowframe" onreadystatechange="showResult(this);" onload="showResult(this);" scrolling="auto" frameborder="0" width="100%" height="100%" src="">
+        </iframe>
+    </div>
+</div>
+</body>
+</html>

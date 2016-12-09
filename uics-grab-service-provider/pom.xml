@@ -340,7 +340,6 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.8.3</version>
-            <scope>test</scope>
         </dependency>
         <!-- TEST end -->
 
@@ -369,6 +368,20 @@
             <version>3.2.0.Final</version>
         </dependency>
         <!--swagger api-->
+
+        <!-- quartz -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>3.2.9.RELEASE</version>
+        </dependency>
+        <!-- quartz -->
         
     </dependencies>
     <!--<build>-->

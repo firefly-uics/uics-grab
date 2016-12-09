@@ -10,7 +10,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/classes/META-INF/spring/applicationContext.xml,/WEB-INF/classes/META-INF/spring/uics-grab-service-provider.xml</param-value>
+        <param-value>/WEB-INF/classes/META-INF/spring/applicationContext.xml,/WEB-INF/classes/META-INF/spring/uics-grab-service-provider.xml,/WEB-INF/classes/META-INF/spring/applicationContext-quartz.xml</param-value>
     </context-param>
 
     <!--this listener must be defined before the spring listener-->
