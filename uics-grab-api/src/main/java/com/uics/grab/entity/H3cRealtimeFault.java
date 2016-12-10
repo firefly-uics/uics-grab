@@ -2,6 +2,7 @@ package com.uics.grab.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.dubbo.x.entity.IdEntity;
 
 
@@ -119,6 +120,10 @@ public class H3cRealtimeFault extends IdEntity {
     public void setAnalyseReport(String analyseReport) {
         this.analyseReport = analyseReport;
     }
-    
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }
 

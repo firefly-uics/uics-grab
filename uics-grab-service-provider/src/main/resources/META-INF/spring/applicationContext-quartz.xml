@@ -5,6 +5,7 @@
 
 	<!-- 工作的bean -->
 	<bean id="h3CJob" class="com.uics.grab.job.H3CJob" >
+		<property name="h3cRealtimeFaultService" ref="h3cRealtimeFaultService"></property>
 	</bean>
 	<!-- 工作的bean -->
 

@@ -1,5 +1,6 @@
 package com.uics.grab.third.h3c;
 
+import com.uics.grab.entity.H3cRealtimeFault;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,14 +16,38 @@ import java.io.IOException;
 public class ParseRealtimeFault {
     @Test
     public void parse() throws IOException {
-//        Document document = Jsoup.parse(new File("/work/001_code/github/java/uics/uics-grab/uics-grab-service-provider/src/test/resources/third/h3c/realtimefault.html"),"utf8");
-//
-//        Element tr = document.getElementById("mainForm:data_data");
+        Document document = Jsoup.parse(new File("/work/001_code/github/java/uics/uics-grab/uics-grab-service-provider/src/test/resources/third/h3c/realtimefault.html"),"utf8");
 
+        Element table = document.getElementById("mainForm:data_data");
+        Elements trs = table.select("tr");
 
-        System.out.println(System.currentTimeMillis()+10*60*1000);
-//        for (Element element: tr){
-//            System.out.println(element.html());
-//        }
+        for (Element tr: trs){
+            H3cRealtimeFault h3cRealtimeFault = new H3cRealtimeFault();
+
+            Elements tds = tr.select("td");
+
+            h3cRealtimeFault.setLevel(tds.get(1).text());
+
+            h3cRealtimeFault.setSource(tds.get(2).text());
+            h3cRealtimeFault.setFaultType(tds.get(3).text());
+            h3cRealtimeFault.setInfo(tds.get(4).text());
+            h3cRealtimeFault.setDateTime(tds.get(5).text());
+            h3cRealtimeFault.setAnalyseReport(tds.get(6).text());
+            h3cRealtimeFault.setFaultId(parseFaultId(tds.get(6).select("a").attr("onclick")));
+            h3cRealtimeFault.setId(h3cRealtimeFault.getFaultId());
+
+        }
+    }
+
+    private String parseFaultId(String attr) {
+        String result = "";
+
+        if (null != attr){
+            int startIndex = attr.indexOf("faultId=")+8;
+            int endIndex = attr.indexOf("','faultReport'");
+            result = attr.substring(startIndex, endIndex);
+        }
+
+        return result;
     }
 }
