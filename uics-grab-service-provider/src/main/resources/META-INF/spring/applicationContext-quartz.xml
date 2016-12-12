@@ -9,6 +9,7 @@
 	</bean>
 	<bean id="idcsJob" class="com.uics.grab.job.IdcsJob" >
 		<property name="idcsTodoService" ref="idcsTodoService"></property>
+		<property name="idcsNotificationService" ref="idcsNotificationService"></property>
 	</bean>
 	<!-- 工作的bean -->
 
@@ -32,6 +33,16 @@
 			<value>syncTodo</value>
 		</property>
 	</bean>
+
+	<bean id="idcsNotificationJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="idcsJob" />
+		</property>
+		<property name="targetMethod">
+			<value>syncNotification</value>
+		</property>
+	</bean>
 	<!-- job的配置结束 -->
 
 
@@ -53,6 +64,15 @@
 			<value>0/30 * * * * ?</value>  <!-- Cron表达式“10 */1 * * * ?”意为：从10秒开始，每1分钟执行一次。  -->
 		</property>
 	</bean>
+
+	<bean id="idcsNotificationJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="idcsNotificationJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0/30 * * * * ?</value>  <!-- Cron表达式“10 */1 * * * ?”意为：从10秒开始，每1分钟执行一次。  -->
+		</property>
+	</bean>
 	<!-- 调度的配置结束 -->
 
 
@@ -63,6 +83,7 @@
 			<list>
 				<ref bean="h3CJobTrigger" />
 				<ref bean="idcsJobTrigger" />
+				<ref bean="idcsNotificationJobTrigger" />
 			</list>
 		</property>
 	</bean>

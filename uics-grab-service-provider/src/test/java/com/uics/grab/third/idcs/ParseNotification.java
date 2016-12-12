@@ -1,34 +1,30 @@
-package com.uics.grab.service;
+package com.uics.grab.third.idcs;
 
 import com.uics.grab.entity.IdcsNotification;
+import com.uics.grab.entity.IdcsTodo;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.dubbo.x.repository.DaoBase;
-import org.dubbo.x.service.CURDServiceBase;
-import com.uics.grab.repository.IdcsNotificationDao;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  idcs通知
-* Created by tom on 2016-12-07 10:53:06.
+ * Created by tom on 16/12/12.
  */
-public class IdcsNotificationServiceImpl extends CURDServiceBase<IdcsNotification> implements IdcsNotificationService {
-    @Autowired
-    private IdcsNotificationDao idcsNotificationDao;
-
-    @Override
-    public DaoBase<IdcsNotification> getDao() {
-        return idcsNotificationDao;
+public class ParseNotification {
+    @Test
+    public void parse() throws IOException {
+        parse(FileUtils.readFileToString(new File("/work/001_code/github/java/uics/uics-grab/uics-grab-service-provider/src/test/resources/third/idcs/通知.html")));
     }
 
-    @Override
-    public List<IdcsNotification> parse(String html) {
+    public List<IdcsNotification> parse(String html){
         Document document = Jsoup.parse(html);
         List<IdcsNotification> idcsNotifications = new ArrayList<IdcsNotification>();
 
@@ -53,5 +49,6 @@ public class IdcsNotificationServiceImpl extends CURDServiceBase<IdcsNotificatio
         }
 
         return idcsNotifications;
+
     }
 }

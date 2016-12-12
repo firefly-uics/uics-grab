@@ -8,4 +8,5 @@ import org.dubbo.x.repository.DaoBase;
 * Created by tom on 2016-12-07 10:53:06.
  **/
 public interface IdcsNotificationDao extends DaoBase<IdcsNotification> {
+    IdcsNotification findByNotificationId(String notificationId);
 }
