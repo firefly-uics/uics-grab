@@ -29,7 +29,7 @@ public class H3CJob {
             List<H3cRealtimeFault> h3cRealtimeFaultList = h3cRealtimeFaultService.parse(FileUtils.readFileToString(new File("/work/001_code/github/java/uics/uics-grab/uics-grab-service-provider/src/test/resources/third/h3c/realtimefault.html")));
             for (H3cRealtimeFault h3cRealtimeFault: h3cRealtimeFaultList){
                 if (null == h3cRealtimeFaultDao.findByFaultId(h3cRealtimeFault.getFaultId())){
-                    h3cRealtimeFaultDao.save(h3cRealtimeFault);
+                    h3cRealtimeFaultService.createOrUpdte(h3cRealtimeFault);
                 }
             }
         }catch (Exception e){

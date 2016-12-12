@@ -36,6 +36,8 @@ public class ParseRealtimeFault {
             h3cRealtimeFault.setFaultId(parseFaultId(tds.get(6).select("a").attr("onclick")));
             h3cRealtimeFault.setId(h3cRealtimeFault.getFaultId());
 
+            System.out.println(h3cRealtimeFault);
+
         }
     }
 

@@ -1,7 +1,7 @@
 --CREATE DATABASE IF NOT EXISTS grab_third DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 drop table if exists t_vrv_config;
 create table t_vrv_config (
-  id uuid PRIMARY KEY NOT NULL,
+  id VARCHAR(32) PRIMARY KEY NOT NULL,
   ip VARCHAR(16) NOT NULL UNIQUE,
 	name varchar(64) not null,
 	cycle INT not null default 60000,
@@ -17,7 +17,7 @@ COMMENT ON COLUMN t_vrv_config.last_refresh_date IS 'vrv服务器刷新时间';
 
 drop table if exists t_vrv_target;
 create table t_vrv_target (
-  id uuid PRIMARY KEY NOT NULL,
+  id VARCHAR(32) PRIMARY KEY NOT NULL,
   config_id uuid NOT NULL,
 	sl INT not null,
 	xmid INT not null,
@@ -33,7 +33,7 @@ COMMENT ON COLUMN t_vrv_target.xmmc IS 'vrv监控指标名称';
 
 drop table if exists t_h3c_realtime_fault;
 create table t_h3c_realtime_fault (
-  id uuid PRIMARY KEY NOT NULL,
+  id VARCHAR(32) PRIMARY KEY NOT NULL,
   fault_id varchar(64) NOT NULL,
 	level varchar(32),
 	source varchar(128),
@@ -55,7 +55,7 @@ COMMENT ON COLUMN t_h3c_realtime_fault.analyse_report IS '分析报告';
 
 drop table if exists t_idcs_notification;
 create table t_idcs_notification (
-  id uuid PRIMARY KEY NOT NULL,
+  id VARCHAR(32) PRIMARY KEY NOT NULL,
   notification_id varchar(32) NOT NULL,
 	notification_type varchar(64),
 	title varchar(512),
@@ -77,7 +77,7 @@ COMMENT ON COLUMN t_idcs_notification.last_refresh_date IS '刷新时间';
 
 drop table if exists t_idcs_todo;
 create table t_idcs_todo (
-  id uuid PRIMARY KEY NOT NULL,
+  id VARCHAR(32) PRIMARY KEY NOT NULL,
   todo_id varchar(32) NOT NULL,
 	todo_type varchar(64),
 	title varchar(512),
