@@ -7,6 +7,9 @@
 	<bean id="h3CJob" class="com.uics.grab.job.H3CJob" >
 		<property name="h3cRealtimeFaultService" ref="h3cRealtimeFaultService"></property>
 	</bean>
+	<bean id="idcsJob" class="com.uics.grab.job.IdcsJob" >
+		<property name="idcsTodoService" ref="idcsTodoService"></property>
+	</bean>
 	<!-- 工作的bean -->
 
 	<!-- job的配置开始 -->
@@ -19,13 +22,32 @@
 			<value>sync</value>
 		</property>
 	</bean>
+
+	<bean id="idcsJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="idcsJob" />
+		</property>
+		<property name="targetMethod">
+			<value>syncTodo</value>
+		</property>
+	</bean>
 	<!-- job的配置结束 -->
 
 
 	<!-- 调度的配置开始 -->
-	<bean id="crontestJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	<bean id="h3CJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
 			<ref bean="h3CJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0/30 * * * * ?</value>  <!-- Cron表达式“10 */1 * * * ?”意为：从10秒开始，每1分钟执行一次。  -->
+		</property>
+	</bean>
+
+	<bean id="idcsJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="idcsJobDetail" />
 		</property>
 		<property name="cronExpression">
 			<value>0/30 * * * * ?</value>  <!-- Cron表达式“10 */1 * * * ?”意为：从10秒开始，每1分钟执行一次。  -->
@@ -39,7 +61,8 @@
 		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="crontestJobTrigger" />
+				<ref bean="h3CJobTrigger" />
+				<ref bean="idcsJobTrigger" />
 			</list>
 		</property>
 	</bean>

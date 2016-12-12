@@ -1,34 +1,30 @@
-package com.uics.grab.service;
+package com.uics.grab.third.idcs;
 
 import com.uics.grab.entity.IdcsTodo;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.dubbo.x.repository.DaoBase;
-import org.dubbo.x.service.CURDServiceBase;
-import com.uics.grab.repository.IdcsTodoDao;
+import org.apache.log4j.net.SyslogAppender;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  idcs代办
-* Created by tom on 2016-12-07 14:34:59.
+ * Created by tom on 16/12/12.
  */
-public class IdcsTodoServiceImpl extends CURDServiceBase<IdcsTodo> implements IdcsTodoService {
-    @Autowired
-    private IdcsTodoDao idcsTodoDao;
-
-    @Override
-    public DaoBase<IdcsTodo> getDao() {
-        return idcsTodoDao;
+public class ParseTodo {
+    @Test
+    public void parse() throws IOException {
+        parse(FileUtils.readFileToString(new File("/work/001_code/github/java/uics/uics-grab/uics-grab-service-provider/src/test/resources/third/idcs/代办.html")));
     }
 
-    @Override
-    public List<IdcsTodo> parse(String html) {
+    public List<IdcsTodo> parse(String html){
         Document document = Jsoup.parse(html);
         List<IdcsTodo> idcsTodos = new ArrayList<IdcsTodo>();
 
@@ -50,5 +46,6 @@ public class IdcsTodoServiceImpl extends CURDServiceBase<IdcsTodo> implements Id
         }
 
         return idcsTodos;
+
     }
 }

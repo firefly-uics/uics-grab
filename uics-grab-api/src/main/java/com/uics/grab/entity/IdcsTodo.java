@@ -2,6 +2,7 @@ package com.uics.grab.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.dubbo.x.entity.IdEntity;
 
 
@@ -70,13 +71,17 @@ public class IdcsTodo extends IdEntity {
     @ApiModelProperty(value = "刷新时间", required = false)
     @NotNull
     @Column(columnDefinition = "刷新时间")
-    private Integer lastRefreshDate;
-    public Integer getLastRefreshDate() {
+    private Long lastRefreshDate;
+    public Long getLastRefreshDate() {
         return lastRefreshDate;
     }
-    public void setLastRefreshDate(Integer lastRefreshDate) {
+    public void setLastRefreshDate(Long lastRefreshDate) {
         this.lastRefreshDate = lastRefreshDate;
     }
-    
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }
 
