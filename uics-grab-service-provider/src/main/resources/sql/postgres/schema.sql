@@ -18,7 +18,7 @@ COMMENT ON COLUMN t_vrv_config.last_refresh_date IS 'vrv服务器刷新时间';
 drop table if exists t_vrv_target;
 create table t_vrv_target (
   id VARCHAR(32) PRIMARY KEY NOT NULL,
-  config_id uuid NOT NULL,
+  config_id VARCHAR(32) NOT NULL,
 	sl INT not null,
 	xmid INT not null,
 	xmmc varchar(64)

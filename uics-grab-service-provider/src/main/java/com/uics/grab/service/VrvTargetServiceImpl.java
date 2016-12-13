@@ -18,4 +18,9 @@ public class VrvTargetServiceImpl extends CURDServiceBase<VrvTarget> implements 
     public DaoBase<VrvTarget> getDao() {
         return vrvTargetDao;
     }
+
+    @Override
+    public VrvTarget findByConfigIdAndXmid(String id, int i) {
+        return vrvTargetDao.findByConfigIdAndXmid(id, i);
+    }
 }

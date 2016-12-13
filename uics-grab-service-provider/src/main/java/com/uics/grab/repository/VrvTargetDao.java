@@ -8,4 +8,5 @@ import org.dubbo.x.repository.DaoBase;
 * Created by tom on 2016-12-07 14:34:58.
  **/
 public interface VrvTargetDao extends DaoBase<VrvTarget> {
+    VrvTarget findByConfigIdAndXmid(String id, int i);
 }

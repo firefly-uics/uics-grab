@@ -8,4 +8,5 @@ import org.dubbo.x.service.CURDService;
  */
 public interface VrvTargetService extends CURDService<VrvTarget> {
 
+    VrvTarget findByConfigIdAndXmid(String id, int i);
 }
