@@ -28,6 +28,7 @@ public class VrvJob {
 
     private VrvConfigService vrvConfigService;
     private VrvTargetService vrvTargetService;
+    private JobEnv jobEnv;
 
 
     public void sync(){
@@ -67,5 +68,13 @@ public class VrvJob {
 
     public void setVrvTargetService(VrvTargetService vrvTargetService) {
         this.vrvTargetService = vrvTargetService;
+    }
+
+    public JobEnv getJobEnv() {
+        return jobEnv;
+    }
+
+    public void setJobEnv(JobEnv jobEnv) {
+        this.jobEnv = jobEnv;
     }
 }

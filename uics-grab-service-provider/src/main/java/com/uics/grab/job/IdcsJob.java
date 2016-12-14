@@ -22,9 +22,11 @@ import java.util.List;
  */
 public class IdcsJob {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdcsJob.class);
+    private static final String JOB_NAME = "idcs";
 
     private IdcsTodoService idcsTodoService;
     private IdcsNotificationService idcsNotificationService;
+    private JobEnv jobEnv;
 
     @Autowired
     private IdcsTodoDao idcsTodoDao;
@@ -32,33 +34,36 @@ public class IdcsJob {
     private IdcsNotificationDao idcsNotificationDao;
 
     public void syncTodo(){
-        LOGGER.info("sync idcs todo start...");
+        LOGGER.info("sync {} todo start...",JOB_NAME);
         try {
-            List<IdcsTodo> idcsTodoList = idcsTodoService.parse(FileUtils.readFileToString(new File("/work/001_code/github/java/uics/uics-grab/uics-grab-service-provider/src/test/resources/third/idcs/代办.html")));
+            File file = new File(jobEnv.getProperty("temp.directory") + File.separator + jobEnv.getProperty("idcs.temp.dir.name") + File.separator + jobEnv.getProperty("idcs.temp.file.todo.name"));
+
+            List<IdcsTodo> idcsTodoList = idcsTodoService.parse(FileUtils.readFileToString(file));
             for (IdcsTodo idcsTodo: idcsTodoList){
                 if (null == idcsTodoDao.findByTodoId(idcsTodo.getTodoId())){
                     idcsTodoService.createOrUpdte(idcsTodo);
                 }
             }
         }catch (Exception e){
-            LOGGER.warn("sync idcs todo event error!", e);
+            LOGGER.warn("sync {} todo event error!", JOB_NAME,e);
         }
-        LOGGER.info("sync idcs todo end.");
+        LOGGER.info("sync {} todo end.",JOB_NAME);
     }
 
     public void syncNotification(){
-        LOGGER.info("sync idcs Notification start...");
+        LOGGER.info("sync {} Notification start...",JOB_NAME);
         try {
-            List<IdcsNotification> idcsNotificationList = idcsNotificationService.parse(FileUtils.readFileToString(new File("/work/001_code/github/java/uics/uics-grab/uics-grab-service-provider/src/test/resources/third/idcs/通知.html")));
+            File file = new File(jobEnv.getProperty("temp.directory") + File.separator + jobEnv.getProperty("idcs.temp.dir.name") + File.separator + jobEnv.getProperty("idcs.temp.file.notification.name"));
+            List<IdcsNotification> idcsNotificationList = idcsNotificationService.parse(FileUtils.readFileToString(file));
             for (IdcsNotification idcsNotification: idcsNotificationList){
                 if (null == idcsNotificationDao.findByNotificationId(idcsNotification.getNotificationId())){
                     idcsNotificationService.createOrUpdte(idcsNotification);
                 }
             }
         }catch (Exception e){
-            LOGGER.warn("sync idcs Notification event error!", e);
+            LOGGER.warn("sync {} Notification event error!", JOB_NAME, e);
         }
-        LOGGER.info("sync idcs Notification end.");
+        LOGGER.info("sync {} Notification end.",JOB_NAME);
     }
 
     public IdcsTodoService getIdcsTodoService() {
@@ -75,5 +80,13 @@ public class IdcsJob {
 
     public void setIdcsNotificationService(IdcsNotificationService idcsNotificationService) {
         this.idcsNotificationService = idcsNotificationService;
+    }
+
+    public JobEnv getJobEnv() {
+        return jobEnv;
+    }
+
+    public void setJobEnv(JobEnv jobEnv) {
+        this.jobEnv = jobEnv;
     }
 }

@@ -1,0 +1,517 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>
+        视图显示页面
+    </title>
+    <link rel="stylesheet" type="text/css" id="view_css" href="/idcs/resource/skins/default/css/view.css"/>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/lang/zh-cn/showwin_lang.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/lang/zh-cn/jsview_lang.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/lang/zh-cn/manageraction_lang.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/ajaxcommon.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/horizon/workflow/js/showwin.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/horizon/workflow/manager/js/manageraction.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/resource/scripts/selectuser.js">
+    </script>
+    <script type="text/javascript" language="JavaScript" src="/idcs/horizon/dateselect/calendar.js">
+    </script>
+    <script language="javascript" src="/idcs/horizon/formview/view/js/viewlist.js">
+    </script>
+    <script language="javascript" src="/idcs/horizon/formview/view/js/sortabletable.js">
+    </script>
+    <style type="text/css">
+      &lt;!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	overflow-y:hidden;
+}
+.ellipsis_row{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+
+--&gt;
+
+    </style>
+    <script>
+//<![CDATA[
+
+  var PageMax = 15;
+  var CurPage =1;
+  var isHome = false;   
+  var otherThirdHeight = 0;//其他参数
+  var canAddRows = 0;
+  var hasViewButton = "false";
+  var countHeight = 0;
+  if(hasViewButton=="true"){ 
+	  countHeight = document.documentElement.clientHeight-otherThirdHeight-108;	 
+  }else{
+	  countHeight = document.documentElement.clientHeight-otherThirdHeight-76;	  
+  }
+  
+  canAddRows= parseInt((countHeight)/28);
+  var needNullLine = true;
+  var nullLineNum =canAddRows; //16:17
+
+function autoHeight(){
+	if(hasViewButton=="true"){	 
+//		 countHeight = document.documentElement.clientHeight-otherThirdHeight-108;	 
+//	  document.getElementById("listcon").style.height=countHeight+"px";	 
+	}else{	 
+//		 countHeight = document.documentElement.clientHeight-otherThirdHeight-76;	  
+//	  document.getElementById("listcon").style.height=countHeight+"px";	  
+	}	
+	if(getIEVersion()=="IE7.0" || getIEVersion()=="IE8.0"){
+	  var initWidth = document.getElementById("listcon").offsetWidth;
+	  document.getElementById("viewtable").style.width =initWidth-17+"px";
+	}
+	canAddRows= parseInt((countHeight)/28);
+	needNullLine = true;
+	nullLineNum =canAddRows; //16:17
+	//填充空白行
+	outNullLine();		
+}
+
+function impl_load(){
+	var e;
+	try{
+		//_impl_view_onload();
+	}catch (e){
+	}
+}
+//简单搜索显示提示内容
+  function displaySimpleSearch(obj){
+	  if(obj.title=='')
+	  {
+	    try{      
+	      var simple=document.getElementsByName("simpleforsearchCN")[0].innerHTML;
+	      result=simple.replace(/<.*?>/g,"");
+	      result=result.replace(/&nbsp;/g,"");     
+	      obj.title='快速搜索项:'+result;
+	    }catch(e)
+	    {
+	    }
+	   }
+   }
+
+
+//]]>
+    </script>
+</head>
+<body onload="_loadNavText(true);autoHeight();impl_load();" onresize="autoHeight();">
+<div class="LineTop" style=" margin:0px auto;overflow: auto;">
+    <form name="frmSearch" method="post">
+        <input type="hidden" name="catText" value=""/>
+        <input type="hidden" name="viewid" value="HZmfbts5JDIy8imJaxpbCaPFrA0FbuN7"/>
+        <input type="hidden" name="sortFlag" value=""/>
+        <!-- 格式:列数;倒序true -->        <input type="hidden" name="pagemax" value=""/>
+        <input type="hidden" name="curpage" value=""/>
+        <input type="hidden" name="searchflag" value="1"/>
+        <!--	//1==不搜索,2=简单搜索,3=高级搜索 -->        <input type="hidden" id="dbIdentifier" name="dbIdentifier" value="system"/>
+        <div id="tit_top" class="tit_top" style="display:">
+          <span class="crumb" id="tdNavText" style="vertical-align: middle;">
+          </span>
+            <div class="vw_serach_td">
+                <div class="input_wrap" style="display:">
+                    <input name="txtSearch" type="text" onkeypress="ckSearch(this.parentNode.nextSibling,event)" style="width:95%;" onfocus="javascrit:this.className= 'PitchOnSpring'" onmousemove="displaySimpleSearch(this)"/>
+                </div>
+                <div style="float:left;display:">
+                    <a href="#nogo" id="tdSearch" onclick="ckSearch(this);">
+                        搜索
+                    </a>
+                    <a href="#nogo" id="tdAdSearch" onclick="ckAdSeach(this)">
+                        高级搜索
+                    </a>
+                </div>
+                <input type="button" value="刷新" style="cursor:pointer;font-size:12px;font-family:微软雅黑,宋体;width:50px" onclick="refreshFun();"/>
+                <div id="idAdSearch" style="display:none;">
+                    <input type="hidden" id="dbIdentifier" name="dbIdentifier" value="system"/>
+                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="line-height:180%;">
+                        <tbody>
+                        <tr>
+                            <td height="35" align="left" colspan="2">
+                                   请输入查询条件：
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%" height="25px" align="right" valign="bottom">
+                                标题：
+                            </td>
+                            <td width="75%" align="left" valign="bottom">
+                                <input type="text" name="tmpSearch_0" value="" maxlength="256" style="width:97%" title="" onpropertychange="chgTextLike(this,&quot;AdSearch_0&quot;)" onchange="chgTextLike(this,'AdSearch_0');this.setAttribute('value',this.value) "/>
+                                <input type="hidden" name="AdSearch_0" value=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%" height="25px" align="right" valign="bottom">
+                                类型：
+                            </td>
+                            <td width="75%" align="left" valign="bottom">
+                                <input type="text" name="tmpSearch_1" value="" maxlength="50" style="width:97%" title="" onpropertychange="chgTextLike(this,&quot;AdSearch_1&quot;)" onchange="chgTextLike(this,'AdSearch_1');this.setAttribute('value',this.value) "/>
+                                <input type="hidden" name="AdSearch_1" value=""/>
+                            </td>
+                        </tr>
+                        <textarea style="display:none" name="allfieldforsearch">A.TITLE like ?,A.MODELNAME like ?</textarea>                  <textarea style="display:none" name="simpleforsearch">A.TITLE,A.MODELNAME</textarea>                  <textarea style="display:none" name="simpleforsearchCN">标题,类型</textarea>                </tbody>
+                    </table>
+                </div>
+                <div id="idAdSearchButton" style="display:none">
+                    <table boder="0">
+                        <tbody>
+                        <tr align="center">
+                            <td width="24%" colspan="2">
+                                <input type="button" value="取消搜索" onclick="parent.okAdSeach(1)" name="btnCancel" class="CheckTrigger" onmouseover="this.className='CheckTriggerOver'" onmouseout="this.className='CheckTrigger'" onmousedown="this.className='CheckTriggerActive'"/>
+                                <input type="button" id="btnAdSearch" value="搜索" onclick="parent.okAdSeach(3)" name="btnSearch" class="CheckTrigger" onmouseover="this.className='CheckTriggerOver'" onmouseout="this.className='CheckTrigger'" onmousedown="this.className='CheckTriggerActive'"/>
+                                <input type="button" value="重置" onclick="eraseHint($('idAdSearch'))" name="Submit22" class="CheckTrigger" onmouseover="this.className='CheckTriggerOver'" onmouseout="this.className='CheckTrigger'" onmousedown="this.className='CheckTriggerActive'"/>
+                                <input type="button" value="返回" onclick="parent.showLayer(null,false); " name="Submit22" class="CheckTrigger" onmouseover="this.className='CheckTriggerOver'" onmouseout="this.className='CheckTrigger'" onmousedown="this.className='CheckTriggerActive'"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="title" class="titlebtn" style="display:none">
+            <div class="vw_serach_btn">
+            </div>
+        </div>
+    </form>
+    <div id="listcon" class="listcon" style="overflow:auto;">
+        <div class="sort-table-warp">
+            <table class="sort-table" border="0" id="viewtable" style="width: 1239px;">
+                <col style="text-align:left"/>
+                <col style="text-align:left"/>
+                <thead>
+                <tr>
+                    <th class="t_rb" style="display:none" _sorttype="None">
+                        <input type="checkbox" name="selectids" onclick="selectall(this)" value="on"/>
+                    </th>
+                    <th align="center" class="t_rb" _sorttype="None">
+                  <span class="thWordStyle" style="text-align:left">
+                    标题
+                  </span>
+                    </th>
+                    <th align="center" class="t_rb" style="cursor: hand;">
+                  <span class="thWordStyle" style="text-align:left">
+                    类型
+                  </span>
+                        <span class="sort-arrow">
+                  </span>
+                    </th>
+                    <th style="display:none" _sorttype="undefined"/>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="vw_data_tr1" onmouseover="trover(this)" onmouseout="trout(this)">
+                    <td class="t_rb" style="display: none;">
+                        <input type="checkbox" name="ids" onclick="selectonly(this)" value="HZ6a88895594d0ff01582cfbfaec77fa"/>
+                    </td>
+                    <td class="vw_data_ck" style="text-align:left " onclick="window.open('/idcs/horizon/todo/todo.open.jsp?id=HZ6a88895594d0ff01582cfbfaec77fa','XMLWorkFlowWindow','width='+(screen.availWidth-20)+',height='+(screen.availHeight-65)+',top=0,left=0,status=yes,titlebar=no,toolbar=no,scrollbars=yes,resizable=yes');return" false="">
+                        关于开展2017年度网络与信息系统运行方式编制工作的通知,请办理.
+                    </td>
+                    <td class="t_rb" style="text-align:left ">
+                        日常任务下发流程
+                    </td>
+                    <td style="display:none">
+                        <textarea name="id_1">HZ6a88895594d0ff01582cfbfaec77fa</textarea>                </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr2">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                <tr isnull="1" class="vw_data_tr1">
+                    <td style="display: none;" class="t_rb"/>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb">
+                         
+                    </td>
+                    <td class="t_rb" style="display: none;">
+                         
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="display:none;" class="vw_data_over" id="divTmpForTable">
+        </div>
+    </div>
+    <div class="page" id="idPage" style="text-align:center;display:''">
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:-5px;">
+            <tbody>
+            <tr height="22px">
+                <td align="center">
+                    共
+                    <span id="totalNumText">
+                  1
+                </span>
+
+                    条记录，共
+                    <span id="totalPageText">
+                  1
+                </span>
+
+                    页，每页显示
+                    <input name="maxPageNum" value="15" onkeypress="changePageMax(this,event)" onblur="lostfocuschangePageMax(this)" onkeydown="changePageMax(this,event)" type="text" onkeyup="clearNoNum(this);" style="width:30px" maxlength="2"/>
+
+                    条记录，当前为第
+                    <input name="curPageNum" value="1" onkeypress="gotoPage(this,event)" onkeydown="gotoPage(this,event)" type="text" onkeyup="clearNoNum(this);" style="width:40px" maxlength="5"/>
+
+                    页，
+                    <span id="pg1" class="vw_data_no">
+                  首页
+                </span>
+                     
+                    <span id="pg2" class="vw_data_no">
+                  上一页
+                </span>
+                     
+
+                    <span id="pg3" class="vw_data_no">
+                  下一页
+                </span>
+                     
+                    <span id="pg4" class="vw_data_no">
+                  尾页
+                </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+			
+			var catText = "";
+			$("catText").value =catText;
+			var tablObj = $("viewtable");
+			var tablWidth ="100%";
+			var st1 = new SortableTable(tablObj,"None;None;String".split(";"));
+		
+//]]>
+    </script>
+<form name="actionForm" target="flowframe" method="post">
+    <div style="display:none">
+        <textarea name="idsList"></textarea>      </div>
+    <div id="paraDiv" style="display:none">
+    </div>
+    <input type="hidden" name="viewid" value="HZmfbts5JDIy8imJaxpbCaPFrA0FbuN7"/>
+</form>
+<form name="EFormOpen" target="_blank" method="post">
+    <input type="hidden" name="dataid" value=""/>
+    <input type="hidden" name="formid" value=""/>
+    <input type="hidden" name="OpenDoc" value=""/>
+</form>
+<div id="idLayer" style="filter:alpha(opacity=0);-moz-opacity:0;opacity:0;z-index:1000;top:0px;left:0px;width:expression(document.body.clientWidth );
+	height:expression(document.body.clientHeight);background-color:#FFFFFF;position:absolute;display:none">
+</div>
+<div id="flowframeLayer" style="z-index:1001;width:451px;height:360px;left:50%; top:20%;display:none;
+	background-color:slategray;color:slategray;font-size:10px;border:2px solid slategray;
+font-family:微软雅黑,宋体;position:absolute;cursor:default ">
+    <div id="dragDiv" style="height:44px; line-height:44px;font-size:14px; color:#FFFFFF; text-indent:10px; background:url(/idcs/resource/skins/default/css/img/title_bg2.gif) right top" ondblclick="showLayer(null,false)">
+        <b>
+            <font style="font-size:10pt" id="iframetitle">
+                ====   请稍后  ====
+            </font>
+        </b>
+        <img src="/idcs/resource/skins/default/css/img/a_close.gif" alt="关闭" style="position:absolute;right:10px;top:14px;cursor:pointer" onclick="showLayer(null,false)"/>
+    </div>
+    <div id="idProcess" style="width: 100%; height: 87%; background-color: white; line-height: 14px; word-break: break-all; display: none;">
+        <iframe name="flowprocess" scrolling="auto" frameborder="0" width="100%" height="100%" src="">
+        </iframe>
+    </div>
+    <div id="idResult" style="width: 100%; height: 87%; background-color: white; line-height: 14px; word-break: break-all; display: block;">
+        <iframe name="flowframe" onreadystatechange="showResult(this);" onload="showResult(this);" scrolling="auto" frameborder="0" width="100%" height="100%" src="">
+        </iframe>
+    </div>
+</div>
+</body>
+</html>
