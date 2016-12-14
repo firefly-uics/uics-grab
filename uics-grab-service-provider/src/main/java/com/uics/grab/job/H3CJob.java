@@ -4,12 +4,10 @@ import com.uics.grab.entity.H3cRealtimeFault;
 import com.uics.grab.repository.H3cRealtimeFaultDao;
 import com.uics.grab.service.H3cRealtimeFaultService;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.util.List;
 
@@ -43,6 +41,23 @@ public class H3CJob {
             LOGGER.warn("sync {} event error!", JOB_NAME, e);
         }
         LOGGER.info("sync {} end.",JOB_NAME);
+    }
+
+    public void syncHtml(){
+        LOGGER.info("sync {} html start...",JOB_NAME);
+        try {
+
+            File dir = new File(jobEnv.getProperty("temp.directory") + File.separator + jobEnv.getProperty("h3c.temp.dir.name"));
+            if (!dir.exists()){
+                dir.mkdirs();
+            }
+
+            File file = new File(dir.getAbsolutePath() + File.separator + jobEnv.getProperty("h3c.temp.file.realtimefault.name"));
+
+        }catch (Exception e){
+            LOGGER.warn("sync {} html event error!", JOB_NAME, e);
+        }
+        LOGGER.info("sync {} html end.",JOB_NAME);
     }
 
     public H3cRealtimeFaultService getH3cRealtimeFaultService() {

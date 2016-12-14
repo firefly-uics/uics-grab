@@ -66,6 +66,39 @@ public class IdcsJob {
         LOGGER.info("sync {} Notification end.",JOB_NAME);
     }
 
+    public void syncTodoHtml(){
+        LOGGER.info("sync {} todo html start...",JOB_NAME);
+        try {
+            File dir = new File(jobEnv.getProperty("temp.directory") + File.separator + jobEnv.getProperty("idcs.temp.dir.name"));
+            if (!dir.exists()){
+                dir.mkdirs();
+            }
+
+            File file = new File(dir.getAbsolutePath() + File.separator + jobEnv.getProperty("idcs.temp.file.todo.name"));
+
+        }catch (Exception e){
+            LOGGER.warn("sync {} todo html event error!", JOB_NAME,e);
+        }
+        LOGGER.info("sync {} todo html end.",JOB_NAME);
+    }
+
+    public void syncNotificationHtml(){
+        LOGGER.info("sync {} notification html start...",JOB_NAME);
+        try {
+            File dir = new File(jobEnv.getProperty("temp.directory") + File.separator + jobEnv.getProperty("idcs.temp.dir.name"));
+            if (!dir.exists()){
+                dir.mkdirs();
+            }
+
+            File file = new File(dir.getAbsolutePath() + File.separator + jobEnv.getProperty("idcs.temp.file.notification.name"));
+
+        }catch (Exception e){
+            LOGGER.warn("sync {} notification html event error!", JOB_NAME,e);
+        }
+        LOGGER.info("sync {} notification html end.",JOB_NAME);
+    }
+
+
     public IdcsTodoService getIdcsTodoService() {
         return idcsTodoService;
     }
