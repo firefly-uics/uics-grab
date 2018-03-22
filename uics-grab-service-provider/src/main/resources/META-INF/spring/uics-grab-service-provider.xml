@@ -20,17 +20,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <!--uncomment this if you want to test dubbo's monitor-->
-    <dubbo:monitor protocol="registry"/>
-
-    <dubbo:protocol name="dubbo" serialization="kryo"
+    <dubbo:protocol name="injvm" serialization="kryo"
                     optimizer="com.uics.grab.SerializationOptimizerImpl"/>
 
 	<!-- idcs通知 api -->
     <bean id="idcsNotificationService" class="com.uics.grab.service.IdcsNotificationServiceImpl"/>
 
     <dubbo:service interface="com.uics.grab.service.IdcsNotificationService" ref="idcsNotificationService"
-                   protocol="dubbo" validation="true" timeout="2000" />
+                   protocol="injvm" validation="true" timeout="2000" />
     <!-- idcs通知 api -->
 
 
@@ -38,7 +35,7 @@
     <bean id="h3cRealtimeFaultService" class="com.uics.grab.service.H3cRealtimeFaultServiceImpl"/>
 
     <dubbo:service interface="com.uics.grab.service.H3cRealtimeFaultService" ref="h3cRealtimeFaultService"
-                   protocol="dubbo" validation="true" timeout="2000" />
+                   protocol="injvm" validation="true" timeout="2000" />
     <!-- h3c告警信息 api -->
 
 
@@ -46,7 +43,7 @@
     <bean id="vrvTargetService" class="com.uics.grab.service.VrvTargetServiceImpl"/>
 
     <dubbo:service interface="com.uics.grab.service.VrvTargetService" ref="vrvTargetService"
-                   protocol="dubbo" validation="true" timeout="2000" />
+                   protocol="injvm" validation="true" timeout="2000" />
     <!-- vrv监控指标统计信息 api -->
 
 
@@ -54,7 +51,7 @@
     <bean id="vrvConfigService" class="com.uics.grab.service.VrvConfigServiceImpl"/>
 
     <dubbo:service interface="com.uics.grab.service.VrvConfigService" ref="vrvConfigService"
-                   protocol="dubbo" validation="true" timeout="2000" />
+                   protocol="injvm" validation="true" timeout="2000" />
     <!-- vrv配置信息 api -->
 
 
@@ -62,7 +59,7 @@
     <bean id="idcsTodoService" class="com.uics.grab.service.IdcsTodoServiceImpl"/>
 
     <dubbo:service interface="com.uics.grab.service.IdcsTodoService" ref="idcsTodoService"
-                   protocol="dubbo" validation="true" timeout="2000" />
+                   protocol="injvm" validation="true" timeout="2000" />
     <!-- idcs代办 api -->
 
 </beans>

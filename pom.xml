@@ -44,6 +44,6 @@
     <module>uics-grab-api</module>
     <module>uics-grab-rest-provider</module>
     <module>uics-grab-service-provider</module>
-    <module>uics-grab-consumer</module>
+    <!--<module>uics-grab-consumer</module>-->
   </modules>
 </project>

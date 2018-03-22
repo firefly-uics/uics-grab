@@ -44,7 +44,7 @@
         <property name="idcsNotificationService" ref="idcsNotificationService"/>
     </bean>
 
-    <dubbo:reference id="idcsNotificationService" interface="com.uics.grab.service.IdcsNotificationService"/>
+    <dubbo:reference id="idcsNotificationService" injvm="true" interface="com.uics.grab.service.IdcsNotificationService"/>
     <!--idcs通知 api -->
 
 
@@ -56,7 +56,7 @@
         <property name="h3cRealtimeFaultService" ref="h3cRealtimeFaultService"/>
     </bean>
 
-    <dubbo:reference id="h3cRealtimeFaultService" interface="com.uics.grab.service.H3cRealtimeFaultService"/>
+    <dubbo:reference id="h3cRealtimeFaultService" injvm="true" interface="com.uics.grab.service.H3cRealtimeFaultService"/>
     <!--h3c告警信息 api -->
 
 
@@ -68,7 +68,7 @@
         <property name="vrvTargetService" ref="vrvTargetService"/>
     </bean>
 
-    <dubbo:reference id="vrvTargetService" interface="com.uics.grab.service.VrvTargetService"/>
+    <dubbo:reference id="vrvTargetService" injvm="true" interface="com.uics.grab.service.VrvTargetService"/>
     <!--vrv监控指标统计信息 api -->
 
 
@@ -80,7 +80,7 @@
         <property name="vrvConfigService" ref="vrvConfigService"/>
     </bean>
 
-    <dubbo:reference id="vrvConfigService" interface="com.uics.grab.service.VrvConfigService"/>
+    <dubbo:reference id="vrvConfigService" injvm="true" interface="com.uics.grab.service.VrvConfigService"/>
     <!--vrv配置信息 api -->
 
 
@@ -92,7 +92,7 @@
         <property name="idcsTodoService" ref="idcsTodoService"/>
     </bean>
 
-    <dubbo:reference id="idcsTodoService" interface="com.uics.grab.service.IdcsTodoService"/>
+    <dubbo:reference id="idcsTodoService" injvm="true" interface="com.uics.grab.service.IdcsTodoService"/>
     <!--idcs代办 api -->
 
 </beans>

@@ -31,7 +31,7 @@ public class H3CJob {
 
             File file = new File(jobEnv.getProperty("temp.directory") + File.separator + jobEnv.getProperty("h3c.temp.dir.name") + File.separator + jobEnv.getProperty("h3c.temp.file.realtimefault.name"));
 
-            List<H3cRealtimeFault> h3cRealtimeFaultList = h3cRealtimeFaultService.parse(FileUtils.readFileToString(file));
+            List<H3cRealtimeFault> h3cRealtimeFaultList = h3cRealtimeFaultService.parse(FileUtils.readFileToString(file,"utf8"));
             for (H3cRealtimeFault h3cRealtimeFault: h3cRealtimeFaultList){
                 if (null == h3cRealtimeFaultDao.findByFaultId(h3cRealtimeFault.getFaultId())){
                     h3cRealtimeFaultService.createOrUpdte(h3cRealtimeFault);

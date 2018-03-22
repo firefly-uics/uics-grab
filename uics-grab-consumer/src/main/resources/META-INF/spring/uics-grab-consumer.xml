@@ -1,41 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd-->
+	<!--http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">-->
 
-    <dubbo:application name="uics-grab-consumer-consumer" owner="" organization="ruijie"/>
+    <!--<dubbo:application name="uics-grab-consumer-consumer" owner="" organization="ruijie"/>-->
 
-    <dubbo:registry address="zookeeper://101.201.196.29:2181"/>
+    <!--<dubbo:registry address="zookeeper://101.201.196.29:2181"/>-->
 
-    <!--uncomment this if you want to test dubbo's monitor-->
-    <!--<dubbo:monitor protocol="registry"/>-->
+    <!--&lt;!&ndash;uncomment this if you want to test dubbo's monitor&ndash;&gt;-->
+    <!--&lt;!&ndash;<dubbo:monitor protocol="registry"/>&ndash;&gt;-->
 
-    <dubbo:reference id="accountService" interface="com.uics.grab.service.AccountService"/>
+    <!--<dubbo:reference id="accountService"  injvm="true" interface="com.uics.grab.service.AccountService"/>-->
 
-	<!-- idcs通知 service -->
-    <dubbo:reference id="idcsNotificationService" interface="com.uics.grab.service.IdcsNotificationService"/>
-    <!-- idcs通知 service -->
-
-
-	<!-- h3c告警信息 service -->
-    <dubbo:reference id="h3cRealtimeFaultService" interface="com.uics.grab.service.H3cRealtimeFaultService"/>
-    <!-- h3c告警信息 service -->
+	<!--&lt;!&ndash; idcs通知 service &ndash;&gt;-->
+    <!--<dubbo:reference id="idcsNotificationService"  injvm="true" interface="com.uics.grab.service.IdcsNotificationService"/>-->
+    <!--&lt;!&ndash; idcs通知 service &ndash;&gt;-->
 
 
-	<!-- vrv监控指标统计信息 service -->
-    <dubbo:reference id="vrvTargetService" interface="com.uics.grab.service.VrvTargetService"/>
-    <!-- vrv监控指标统计信息 service -->
+	<!--&lt;!&ndash; h3c告警信息 service &ndash;&gt;-->
+    <!--<dubbo:reference id="h3cRealtimeFaultService"  injvm="true" interface="com.uics.grab.service.H3cRealtimeFaultService"/>-->
+    <!--&lt;!&ndash; h3c告警信息 service &ndash;&gt;-->
 
 
-	<!-- vrv配置信息 service -->
-    <dubbo:reference id="vrvConfigService" interface="com.uics.grab.service.VrvConfigService"/>
-    <!-- vrv配置信息 service -->
+	<!--&lt;!&ndash; vrv监控指标统计信息 service &ndash;&gt;-->
+    <!--<dubbo:reference id="vrvTargetService"  injvm="true" interface="com.uics.grab.service.VrvTargetService"/>-->
+    <!--&lt;!&ndash; vrv监控指标统计信息 service &ndash;&gt;-->
 
 
-	<!-- idcs代办 service -->
-    <dubbo:reference id="idcsTodoService" interface="com.uics.grab.service.IdcsTodoService"/>
-    <!-- idcs代办 service -->
+	<!--&lt;!&ndash; vrv配置信息 service &ndash;&gt;-->
+    <!--<dubbo:reference id="vrvConfigService"  injvm="true" interface="com.uics.grab.service.VrvConfigService"/>-->
+    <!--&lt;!&ndash; vrv配置信息 service &ndash;&gt;-->
 
-</beans>
+
+	<!--&lt;!&ndash; idcs代办 service &ndash;&gt;-->
+    <!--<dubbo:reference id="idcsTodoService" injvm="true" interface="com.uics.grab.service.IdcsTodoService"/>-->
+    <!--&lt;!&ndash; idcs代办 service &ndash;&gt;-->
+
+<!--</beans>-->

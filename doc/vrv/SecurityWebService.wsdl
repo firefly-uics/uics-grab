@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Log">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LogResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIllegal_OutreachIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIllegal_OutreachIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIllegal_OutreachIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUnregistered_DeviceIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetUnregistered_DeviceIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUnregistered_DeviceIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotInstallAnti_SoftwareIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNotInstallAnti_SoftwareIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotInstallAnti_SoftwareIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSystem_Weak_PasswordsIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSystem_Weak_PasswordsIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSystem_Weak_PasswordsIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDetection_SystemIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDetection_SystemIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDetection_SystemIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesktop_SystemIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDesktop_SystemIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDesktop_SystemIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotInstall_PatchIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNotInstall_PatchIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotInstall_PatchIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotOpenTrendIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNotOpenTrendIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotOpenTrendIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotInstall_AntivirusIndicatorInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNotInstall_AntivirusIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotInstall_AntivirusIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsAntiNotLatest">
+        <s:complexType />
+      </s:element>
+      <s:element name="IsAntiNotLatestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IsAntiNotLatestResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfectedIndicatorInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="kssj" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="jssj" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfectedIndicatorInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfectedIndicatorInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlarmEventResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="errortype" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="startTime" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endTime" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlarmEventResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAlarmEventResultResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatistics">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetStatisticsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatisticsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LogSoapIn">
+    <wsdl:part name="parameters" element="tns:Log" />
+  </wsdl:message>
+  <wsdl:message name="LogSoapOut">
+    <wsdl:part name="parameters" element="tns:LogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIllegal_OutreachIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIllegal_OutreachIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetIllegal_OutreachIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIllegal_OutreachIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUnregistered_DeviceIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUnregistered_DeviceIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUnregistered_DeviceIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUnregistered_DeviceIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotInstallAnti_SoftwareIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotInstallAnti_SoftwareIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetNotInstallAnti_SoftwareIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotInstallAnti_SoftwareIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSystem_Weak_PasswordsIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSystem_Weak_PasswordsIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetSystem_Weak_PasswordsIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSystem_Weak_PasswordsIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDetection_SystemIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDetection_SystemIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetDetection_SystemIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDetection_SystemIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDesktop_SystemIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDesktop_SystemIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetDesktop_SystemIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDesktop_SystemIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotInstall_PatchIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotInstall_PatchIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetNotInstall_PatchIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotInstall_PatchIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotOpenTrendIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotOpenTrendIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetNotOpenTrendIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotOpenTrendIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotInstall_AntivirusIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotInstall_AntivirusIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetNotInstall_AntivirusIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotInstall_AntivirusIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsAntiNotLatestSoapIn">
+    <wsdl:part name="parameters" element="tns:IsAntiNotLatest" />
+  </wsdl:message>
+  <wsdl:message name="IsAntiNotLatestSoapOut">
+    <wsdl:part name="parameters" element="tns:IsAntiNotLatestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfectedIndicatorInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfectedIndicatorInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetInfectedIndicatorInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfectedIndicatorInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAlarmEventResultSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlarmEventResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAlarmEventResultSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlarmEventResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatisticsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatistics" />
+  </wsdl:message>
+  <wsdl:message name="GetStatisticsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SecurityWebServiceSoap">
+    <wsdl:operation name="Log">
+      <wsdl:input message="tns:LogSoapIn" />
+      <wsdl:output message="tns:LogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIllegal_OutreachIndicatorInfo">
+      <wsdl:input message="tns:GetIllegal_OutreachIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetIllegal_OutreachIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnregistered_DeviceIndicatorInfo">
+      <wsdl:input message="tns:GetUnregistered_DeviceIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetUnregistered_DeviceIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstallAnti_SoftwareIndicatorInfo">
+      <wsdl:input message="tns:GetNotInstallAnti_SoftwareIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetNotInstallAnti_SoftwareIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSystem_Weak_PasswordsIndicatorInfo">
+      <wsdl:input message="tns:GetSystem_Weak_PasswordsIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetSystem_Weak_PasswordsIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDetection_SystemIndicatorInfo">
+      <wsdl:input message="tns:GetDetection_SystemIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetDetection_SystemIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDesktop_SystemIndicatorInfo">
+      <wsdl:input message="tns:GetDesktop_SystemIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetDesktop_SystemIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstall_PatchIndicatorInfo">
+      <wsdl:input message="tns:GetNotInstall_PatchIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetNotInstall_PatchIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotOpenTrendIndicatorInfo">
+      <wsdl:input message="tns:GetNotOpenTrendIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetNotOpenTrendIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstall_AntivirusIndicatorInfo">
+      <wsdl:input message="tns:GetNotInstall_AntivirusIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetNotInstall_AntivirusIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAntiNotLatest">
+      <wsdl:input message="tns:IsAntiNotLatestSoapIn" />
+      <wsdl:output message="tns:IsAntiNotLatestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfectedIndicatorInfo">
+      <wsdl:input message="tns:GetInfectedIndicatorInfoSoapIn" />
+      <wsdl:output message="tns:GetInfectedIndicatorInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmEventResult">
+      <wsdl:input message="tns:GetAlarmEventResultSoapIn" />
+      <wsdl:output message="tns:GetAlarmEventResultSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatistics">
+      <wsdl:input message="tns:GetStatisticsSoapIn" />
+      <wsdl:output message="tns:GetStatisticsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SecurityWebServiceSoap" type="tns:SecurityWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Log">
+      <soap:operation soapAction="http://tempuri.org/Log" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIllegal_OutreachIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetIllegal_OutreachIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnregistered_DeviceIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetUnregistered_DeviceIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstallAnti_SoftwareIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetNotInstallAnti_SoftwareIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystem_Weak_PasswordsIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetSystem_Weak_PasswordsIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDetection_SystemIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetDetection_SystemIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesktop_SystemIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetDesktop_SystemIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstall_PatchIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetNotInstall_PatchIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotOpenTrendIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetNotOpenTrendIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstall_AntivirusIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetNotInstall_AntivirusIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAntiNotLatest">
+      <soap:operation soapAction="http://tempuri.org/IsAntiNotLatest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfectedIndicatorInfo">
+      <soap:operation soapAction="http://tempuri.org/GetInfectedIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmEventResult">
+      <soap:operation soapAction="http://tempuri.org/GetAlarmEventResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatistics">
+      <soap:operation soapAction="http://tempuri.org/GetStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SecurityWebServiceSoap12" type="tns:SecurityWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Log">
+      <soap12:operation soapAction="http://tempuri.org/Log" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIllegal_OutreachIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetIllegal_OutreachIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnregistered_DeviceIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetUnregistered_DeviceIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstallAnti_SoftwareIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetNotInstallAnti_SoftwareIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystem_Weak_PasswordsIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetSystem_Weak_PasswordsIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDetection_SystemIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetDetection_SystemIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesktop_SystemIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetDesktop_SystemIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstall_PatchIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetNotInstall_PatchIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotOpenTrendIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetNotOpenTrendIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotInstall_AntivirusIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetNotInstall_AntivirusIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAntiNotLatest">
+      <soap12:operation soapAction="http://tempuri.org/IsAntiNotLatest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfectedIndicatorInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetInfectedIndicatorInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmEventResult">
+      <soap12:operation soapAction="http://tempuri.org/GetAlarmEventResult" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatistics">
+      <soap12:operation soapAction="http://tempuri.org/GetStatistics" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SecurityWebService">
+    <wsdl:port name="SecurityWebServiceSoap" binding="tns:SecurityWebServiceSoap">
+      <soap:address location="http://10.235.208.241:8088/WebService/SecurityWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SecurityWebServiceSoap12" binding="tns:SecurityWebServiceSoap12">
+      <soap12:address location="http://10.235.208.241:8088/WebService/SecurityWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

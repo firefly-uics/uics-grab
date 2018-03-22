@@ -38,7 +38,7 @@ public class IdcsJob {
         try {
             File file = new File(jobEnv.getProperty("temp.directory") + File.separator + jobEnv.getProperty("idcs.temp.dir.name") + File.separator + jobEnv.getProperty("idcs.temp.file.todo.name"));
 
-            List<IdcsTodo> idcsTodoList = idcsTodoService.parse(FileUtils.readFileToString(file));
+            List<IdcsTodo> idcsTodoList = idcsTodoService.parse(FileUtils.readFileToString(file,"utf8"));
             for (IdcsTodo idcsTodo: idcsTodoList){
                 if (null == idcsTodoDao.findByTodoId(idcsTodo.getTodoId())){
                     idcsTodoService.createOrUpdte(idcsTodo);
@@ -54,7 +54,7 @@ public class IdcsJob {
         LOGGER.info("sync {} Notification start...",JOB_NAME);
         try {
             File file = new File(jobEnv.getProperty("temp.directory") + File.separator + jobEnv.getProperty("idcs.temp.dir.name") + File.separator + jobEnv.getProperty("idcs.temp.file.notification.name"));
-            List<IdcsNotification> idcsNotificationList = idcsNotificationService.parse(FileUtils.readFileToString(file));
+            List<IdcsNotification> idcsNotificationList = idcsNotificationService.parse(FileUtils.readFileToString(file,"utf8"));
             for (IdcsNotification idcsNotification: idcsNotificationList){
                 if (null == idcsNotificationDao.findByNotificationId(idcsNotification.getNotificationId())){
                     idcsNotificationService.createOrUpdte(idcsNotification);
