@@ -1,5 +1,6 @@
 package com.uics.grab.facade;
 
+import com.uics.grab.entity.VrvAlarmHistory;
 import org.dubbo.x.facade.CURDRestService;
 import org.dubbo.x.facade.RestResult;
 import org.dubbo.x.util.ConstantVariable;
@@ -33,6 +34,16 @@ public interface VrvTargetRestService extends CURDRestService<VrvTarget>{
     @ApiOperation(value = "vrv监控指标统计信息",
             notes = "vrv监控指标统计信息列表.")
     RestResult<List<VrvTarget>> list(@HeaderParam(ConstantVariable.HEADER_AUTHORIZATION_KEY) String token);
+
+    /**
+     * vrv监控指标违规事件列表
+     * @return
+     */
+    @GET
+    @Path("/alarm/history")
+    @ApiOperation(value = "vrv监控指标违规事件列表",
+            notes = "vrv监控指标违规事件列表.")
+    RestResult<List<VrvAlarmHistory>> alarmHistory(@HeaderParam(ConstantVariable.HEADER_AUTHORIZATION_KEY) String token, @ApiParam("type") @QueryParam("type") String type, @ApiParam("begintime") @QueryParam("begintime") String begintime, @ApiParam("endtime") @QueryParam("endtime") String endtime);
 
     /**
      * vrv监控指标统计信息 详细信息
