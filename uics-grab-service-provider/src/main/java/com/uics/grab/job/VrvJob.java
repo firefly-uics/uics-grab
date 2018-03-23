@@ -41,7 +41,7 @@ public class VrvJob {
                 if (null == vrvTarget){
                     vrvTarget = new VrvTarget();
                 }
-                vrvTarget.setConfigId(vrvConfig.getId());
+                vrvTarget.setConfig(vrvConfig);
                 vrvTarget.setSl(RandomUtils.nextInt(20, 30));
                 vrvTarget.setXmmc("非法外链");
                 vrvTarget.setXmid(1);

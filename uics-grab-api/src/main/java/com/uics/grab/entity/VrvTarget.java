@@ -5,8 +5,12 @@ import io.swagger.annotations.ApiModelProperty;
 import org.dubbo.x.entity.IdEntity;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -28,14 +32,17 @@ public class VrvTarget extends IdEntity {
     @ApiModelProperty(value = "vrv服务器配置信息", required = false)
     @NotNull
     @Column(columnDefinition = "vrv服务器配置信息")
-    private String configId;
-    public String getConfigId() {
-        return configId;
+    public VrvConfig config;
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="config_id")
+    public VrvConfig getConfig() {
+        return config;
     }
-    public void setConfigId(String configId) {
-        this.configId = configId;
+
+    public void setConfig(VrvConfig config) {
+        this.config = config;
     }
-    
+
     /**
      * vrv监控指标统计结果
      */
