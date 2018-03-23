@@ -52,11 +52,6 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.uics</groupId>
-            <artifactId>uics-grab-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
         </dependency>
@@ -414,6 +409,11 @@
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
             <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>3.1.5</version>
         </dependency>
     </dependencies>
     <!--<build>-->
