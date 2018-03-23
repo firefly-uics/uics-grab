@@ -43,7 +43,7 @@ public interface VrvTargetRestService extends CURDRestService<VrvTarget>{
     @Path("/alarm/history")
     @ApiOperation(value = "vrv监控指标违规事件列表",
             notes = "vrv监控指标违规事件列表.")
-    RestResult<List<VrvAlarmHistory>> alarmHistory(@HeaderParam(ConstantVariable.HEADER_AUTHORIZATION_KEY) String token, @ApiParam("type") @QueryParam("type") String type, @ApiParam("begintime") @QueryParam("begintime") String begintime, @ApiParam("endtime") @QueryParam("endtime") String endtime);
+    RestResult<List<VrvAlarmHistory>> alarmHistory(@HeaderParam(ConstantVariable.HEADER_AUTHORIZATION_KEY) String token, @ApiParam("area") @QueryParam("area") String area, @ApiParam("type") @QueryParam("type") String type, @ApiParam("begintime") @QueryParam("begintime") String begintime, @ApiParam("endtime") @QueryParam("endtime") String endtime);
 
     /**
      * vrv监控指标统计信息 详细信息

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.QueryParam;
 
 /**
  * vrv监控指标统计信息
@@ -42,12 +43,23 @@ public class VrvTargetRestServiceImpl extends RestServiceBase<VrvTarget> impleme
 
     @Override
     public RestResult<List<VrvAlarmHistory>> alarmHistory(
-            @HeaderParam(ConstantVariable.HEADER_AUTHORIZATION_KEY) String token,
+            @HeaderParam(ConstantVariable.HEADER_AUTHORIZATION_KEY) String token, @ApiParam("area") String area,
             @ApiParam("type") String type, @ApiParam("begintime") String begintime,
             @ApiParam("endtime") String endtime) {
         String json = "{\"total\":1,\"rows\":\n"
-                      + "        [{\"ID\":1,\"ClassName\":\"sdfsf\",\"DeptName\":\"asfsadf\",\"AlarmType\":\"sdfsdfsf\",\"DeviceName\":\"sdfsf\",\"IPAddress\":\"192.168.1.1\",\"Status\":\"0\",\"Dt\":\"2016-11-25T00:00:00\"}]\n"
+                      + "        ["
+                      + "{\"ID\":1,\"ClassName\":\"吉安供电公司\",\"DeptName\":\"吉安店里实业总公司\",\"AlarmType\":\"发现弱口令设备\",\"DeviceName\":\"郭德伟\",\"IPAddress\":\"10.234.157.78\",\"Status\":\"1\",\"Dt\":\"2018-03-14T08:50:92\"},"
+                      + "{\"ID\":2,\"ClassName\":\"客户服务中心\",\"DeptName\":\"运检部-配电运检室\",\"AlarmType\":\"发现弱口令设备\",\"DeviceName\":\"XT-20170821TJZ\",\"IPAddress\":\"10.234.159.97\",\"Status\":\"0\",\"Dt\":\"2018-03-09T09:10:84\"}"
+                      + "]\n"
                       + "    }";
+        if ("1".equals(area)){
+            json = "{\"total\":1,\"rows\":\n"
+                   + "        ["
+                   + "{\"ID\":1,\"ClassName\":\"变电检修分公司\",\"DeptName\":\"运维部-变电检修一班\",\"AlarmType\":\"发现弱口令设备\",\"DeviceName\":\"变电检修一班\",\"IPAddress\":\"10.234.147.38\",\"Status\":\"1\",\"Dt\":\"2018-03-14T11:31:92\"},"
+                   + "{\"ID\":2,\"ClassName\":\"客户服务中心\",\"DeptName\":\"运检部-配电运检室\",\"AlarmType\":\"发现弱口令设备\",\"DeviceName\":\"13F运检\",\"IPAddress\":\"10.234.158.68\",\"Status\":\"0\",\"Dt\":\"2018-01-12T10:05:84\"}"
+                   + "]\n"
+                   + "    }";
+        }
 
         VrvPage vrvPage = JSON.parseObject(json, VrvPage.class);
 
