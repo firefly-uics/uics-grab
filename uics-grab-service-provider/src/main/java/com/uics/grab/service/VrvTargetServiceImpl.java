@@ -2,6 +2,7 @@ package com.uics.grab.service;
 
 import com.uics.grab.entity.VrvConfig;
 import com.uics.grab.entity.VrvTarget;
+import com.uics.grab.repository.VrvConfigDao;
 import com.utils.HttpsUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.EntityBuilder;
@@ -9,6 +10,7 @@ import org.apache.http.entity.ContentType;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import org.dom4j.xpath.DefaultXPath;
 import org.dubbo.x.repository.DaoBase;
 import org.dubbo.x.service.CURDServiceBase;
@@ -27,6 +29,8 @@ import java.util.List;
 public class VrvTargetServiceImpl extends CURDServiceBase<VrvTarget> implements VrvTargetService {
     @Autowired
     private VrvTargetDao vrvTargetDao;
+    @Autowired
+    private VrvConfigDao vrvConfigDao;
     private Logger logger = LoggerFactory.getLogger(VrvTargetServiceImpl.class);
 
     @Override
@@ -80,5 +84,47 @@ public class VrvTargetServiceImpl extends CURDServiceBase<VrvTarget> implements 
             logger.error("sync error!", e);
         }
         return varTargets;
+    }
+
+    @Override
+    public String alarmHistory(String area, String type, String begin, String end) {
+
+        String soapRequestData = "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:tem=\"http://tempuri.org/\">\n"
+                                 + "     <soap:Header/>\n"
+                                 + "     <soap:Body>\n"
+                                 + "     <tem:GetVrvAlarmHistory>\n"
+                                 + "     <!--Optional:-->\n"
+                                 + "     <tem:begintime>2010-01-01</tem:begintime>\n"
+                                 + "     <tem:endtime>2030-01-01</tem:endtime>\n"
+                                 + "     <tem:page>1</tem:page>\n"
+                                 + "     <tem:pagesize>1000</tem:pagesize>\n"
+                                 + "     </tem:GetVrvAlarmHistory>\n"
+                                 + "     </soap:Body>\n"
+                                 + "     </soap:Envelope>";
+
+        HttpEntity httpEntity = EntityBuilder.create().setText(soapRequestData).setContentType(
+                ContentType.TEXT_XML).setContentEncoding("utf-8").build();
+
+        try {
+            VrvConfig vrvConfig = vrvConfigDao.findOne(area);
+            if (null != vrvConfig){
+                String res = HttpsUtils
+                        .post("https://"+vrvConfig.getIp()+"/zbjk/WebService/SecurityWebService.asmx?WSDL", null, null, httpEntity);
+
+                Document doc = DocumentHelper.parseText(res);
+                Element body = (Element)doc.getRootElement().elements().get(0);
+                Element getVrvAlarmHistoryResponse = (Element)body.elements().get(0);
+                Element getVrvAlarmHistoryResult = (Element)getVrvAlarmHistoryResponse.elements().get(0);
+
+                if (null != getVrvAlarmHistoryResult) {
+                    return getVrvAlarmHistoryResult.getText();
+                }
+
+            }
+        }catch (Exception e){
+            logger.warn("get alarmHistory", e);
+        }
+
+        return "{}";
     }
 }

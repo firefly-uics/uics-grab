@@ -18,4 +18,10 @@ public interface VrvTargetService extends CURDService<VrvTarget> {
      * 同步统计数据
      */
     List<VrvTarget> syncStatistics(VrvConfig vrvConfig);
+
+
+    /**
+     * 历史违规事件
+     */
+    String alarmHistory(String area, String type, String begin, String end);
 }

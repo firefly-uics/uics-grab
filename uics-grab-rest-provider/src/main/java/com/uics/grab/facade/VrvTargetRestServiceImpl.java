@@ -27,6 +27,7 @@ public class VrvTargetRestServiceImpl extends RestServiceBase<VrvTarget> impleme
     private static final Logger LOGGER = LoggerFactory.getLogger(VrvTargetRestServiceImpl.class);
 
     private VrvTargetService vrvTargetService;
+    private Logger logger = LoggerFactory.getLogger(VrvTargetRestServiceImpl.class);
 
     public VrvTargetService getVrvTargetService() {
         return vrvTargetService;
@@ -59,6 +60,12 @@ public class VrvTargetRestServiceImpl extends RestServiceBase<VrvTarget> impleme
                    + "{\"ID\":2,\"ClassName\":\"客户服务中心\",\"DeptName\":\"运检部-配电运检室\",\"AlarmType\":\"发现弱口令设备\",\"DeviceName\":\"13F运检\",\"IPAddress\":\"10.234.158.68\",\"Status\":\"0\",\"Dt\":\"2018-01-12T10:05:84\"}"
                    + "]\n"
                    + "    }";
+        }
+        try {
+            json = vrvTargetService.alarmHistory(area, type, begintime, endtime);
+        }catch (Exception e){
+            logger.warn("alarmHistory", e);
+
         }
 
         VrvPage vrvPage = JSON.parseObject(json, VrvPage.class);
