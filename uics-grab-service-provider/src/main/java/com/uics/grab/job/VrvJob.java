@@ -37,16 +37,19 @@ public class VrvJob {
         List<VrvConfig> vrvConfigs = vrvConfigService.listAll();
         for (VrvConfig vrvConfig: vrvConfigs) {
             try {
-                VrvTarget vrvTarget = vrvTargetService.findByConfigIdAndXmid(vrvConfig.getId(), 1);
-                if (null == vrvTarget){
-                    vrvTarget = new VrvTarget();
-                }
-                vrvTarget.setConfig(vrvConfig);
-                vrvTarget.setSl(RandomUtils.nextInt(20, 30));
-                vrvTarget.setXmmc("非法外链");
-                vrvTarget.setXmid(1);
+                List<VrvTarget> vrvTargets = vrvTargetService.syncStatistics(vrvConfig);
+                for (VrvTarget vrvTarget: vrvTargets) {
+                    VrvTarget
+                            vrvTargetOld =
+                            vrvTargetService.findByConfigIdAndXmid(vrvConfig.getId(), vrvTarget.getXmid());
+                    if (null == vrvTargetOld) {
+                        vrvTargetOld = vrvTarget;
+                    }else {
+                        vrvTargetOld.setSl(vrvTarget.getSl());
+                    }
 
-                vrvTargetService.createOrUpdte(vrvTarget);
+                    vrvTargetService.createOrUpdte(vrvTargetOld);
+                }
             } catch (Exception e) {
                 LOGGER.warn("sync {} event error!", JOB_NAME, e);
             }

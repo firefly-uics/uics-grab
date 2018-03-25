@@ -84,6 +84,14 @@ public class VrvTarget extends IdEntity {
     public void setXmmc(String xmmc) {
         this.xmmc = xmmc;
     }
-    
+
+    @Override
+    public String toString() {
+        return "VrvTarget{" +
+               "sl=" + sl +
+               ", xmid=" + xmid +
+               ", xmmc='" + xmmc + '\'' +
+               '}';
+    }
 }
 
